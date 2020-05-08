@@ -1,0 +1,65 @@
+{
+  "id": "1748502",
+  "name": "wx2020-le",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "14310729",
+      "name": "查找 表单 列表",
+      "font_class": "chazhaobiaodanliebiao-copy",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "14310735",
+      "name": "简历",
+      "font_class": "jianli-copy",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "14310744",
+      "name": "我 的",
+      "font_class": "wode-copy",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "2781735",
+      "name": "简历",
+      "font_class": "jianli",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "10762256",
+      "name": "我 的",
+      "font_class": "wode",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "12447582",
+      "name": "查找 表单 列表",
+      "font_class": "chazhaobiaodanliebiao",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "4257739",
+      "name": "icon_star_hollow",
+      "font_class": "stare",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "7349036",
+      "name": "icon-star-o",
+      "font_class": "icon-star-o",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    }
+  ]
+}
