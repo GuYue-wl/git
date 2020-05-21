@@ -115,9 +115,16 @@ export default {
                                 answerInfo+=(val+1);
                           }
                         //   alert(answerInfo)
-                          console.log(answerInfo);
-                          const lasttest=Object.assign(wx.getStorageSync('twodata'),{pCharacter:answerInfo}) 
-                          this.submittotal(lasttest)
+                         // console.log(answerInfo);
+                          let lastresult=answerInfo.replace(/1/g,'A').replace(/2/g,'B').split('').join('-');
+                           console.log(lastresult);
+                           
+                          const lasttest=Object.assign(wx.getStorageSync('twodata'),{pCharacter:lastresult});
+                          wx.removeStorageSync('twodata');
+                          wx.setStorageSync('lastdata',lasttest);
+                            wx.navigateTo({
+                               url:'/pages/userRate/main',
+                                 })
                           
                     }else{
                         //如果不是最后一条值则把下一题的下标给他
@@ -138,20 +145,10 @@ export default {
             submit(){
                 //判断最后一题是否做了
                 this.nextQuestion(this.questionsArry.length-1);  
+              
             },
-            //向后端提交
-           async submittotal(data){
-               console.log(data);
-               
-               const res=await this.$flyio.post('/register',data)
-               console.log(res);
-               if(res){
-                     wx.switchTab({
-                       url: '/pages/index/main',
-                          })
-               }
-               
-            }
+            //进入下一页
+        
         },
         
 }

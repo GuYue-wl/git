@@ -70,12 +70,13 @@ methods:{
       })
   },
      go(){
-       const twodata= Object.assign(wx.getStorageSync('onedata'),{prize:{
-       honors:this.honors,
-       skills:this.skills,
-       mymessage:this.mymessage
-    }})   
-    console.log(twodata);
+       const twodata= Object.assign(wx.getStorageSync('onedata'),{
+       prize:this.honors.join('-'),
+       skill:this.skills.join('-'),
+       introduce:this.mymessage
+    })   
+    //console.log(twodata);
+    wx.removeStorageSync('onedata');
     wx.setStorageSync('twodata',twodata)
       wx.navigateTo({
           url: '/pages/userTest/main',

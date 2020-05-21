@@ -11,21 +11,13 @@
         <div class="about">
           <span>对自己进行简单的评价吧</span>
         </div>
-        <div class="userRate">
-            <div class="Rate">
-                <p>沟通能力：</p>
-                <my-rate value='0'  @onRate='myvalue' size='50rpx' length='5'/>
-            </div>
-            <div class="Rate">
-                <p>性格评价：</p>
-                <my-rate value='0'  @onRate='myvalue' size='50rpx' length='5'/>
-            </div>
-            <div class="Rate">
-                <p>团队配合：</p>
-                <my-rate  value='0'  @onRate='myvalue' size='50rpx' length='5'/>
-            </div>
+        <div class="userRate" v-for="(item,i) in detaildata" :key='i'>
+            <div class="Rate" @click="changedata(i)">
+                <p >{{item.messege}}</p>               
+                <my-rate :value='item.value' realonly="false"  @onRate='myvalue' size='50rpx' length='5' />
+            </div>    
         </div>
-        <button class=" bg-cyan test " role="button"aria-disabled="false" @click="toPsychological">提交</button>
+        <button class=" bg-cyan test " role="button" aria-disabled="false" @tap="totalsubmit()">提交</button>
         
       </div>
  </div>
@@ -39,7 +31,13 @@ export default {
     },
  data() {
   return {
-      childvalue:''
+      detaildata:[
+        {messege:'沟通能力:',value:0},
+         {messege:'性格评价:',value:0},
+       {messege:'团队配合:',value:0}
+      ],
+      childvalue:'',
+      chardata:''
   }
  },
  beforeMount(){
@@ -54,8 +52,32 @@ methods:{
           url: '/pages/userTest/main',
       })
   },
+ changedata(i){
+this.detaildata[i].value=this.childvalue;
+console.log(this.detaildata);
+
+ },
     myvalue(value){
-        this.childvelue=value
+       this.childvalue=value;
+      // console.log(i);
+      // console.log(this.detaildata);
+      
+        //this.detaildata[i].value=value
+    },
+    //最后提交
+   async totalsubmit(){
+      console.log('点击');
+      
+       const lasttest=Object.assign(wx.getStorageSync('lastdata'),{stars:this.detaildata.map(val=>val.value).join('-')});
+       console.log(lasttest);
+       wx.removeStorageSync('lastdata')
+      const res=await this.$flyio.post('/register',lasttest)
+               console.log(res);
+               if(res){
+                     wx.switchTab({
+                       url: '/pages/index/main',
+                          })
+               }
     }
 }
 }
