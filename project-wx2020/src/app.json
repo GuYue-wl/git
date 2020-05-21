@@ -1,11 +1,14 @@
 {
   "pages": [
-    "pages/index/main",
-    "pages/psychological_test/main",
     "pages/userDetail/main",
+    "pages/userRate/main",
+    "pages/psychological_test/main",
+    "pages/index/main",
+  
+   
     "pages/userTest/main",
     "pages/peopleList/main",
-    "pages/userRate/main",
+    
     "pages/userHonor/main",
     "pages/my/main",
     "pages/userApply/main",

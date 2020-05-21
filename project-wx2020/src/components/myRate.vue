@@ -62,7 +62,7 @@ export default {
       if (this.readonly) {
         return false
       }
-      console.log(i);
+      //console.log(i);
       this.styleObject.width = i*0.82 + 'em'
       this.$emit('onRate', i)
     }
