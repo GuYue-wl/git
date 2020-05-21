@@ -4,17 +4,17 @@
             <div class="people_info">
                 <div class="name">
                     <text class="cuIcon-newsfill lg text-cyan "></text>
-                    <p>李同学</p>
+                    <p>{{peopleDetail.username}}同学</p>
                 </div>
                 <div class="info">
                     <div class="garde">
-                        <p >大二</p>
+                        <p >{{peopleDetail.grade}}</p>
                     </div>
                     <div class="major">
-                        <p>物联网工程</p>
+                        <p>{{peopleDetail.major}}</p>
                     </div>
                     <div class="school">
-                        <p>西南科技大学</p>
+                        <p>{{peopleDetail.school}}</p>
                     </div>
                 </div>
                 <div class="people_skill">
@@ -23,32 +23,19 @@
                         <p>个人技能 ：</p>
                     </div>
                     <div class="skillList">
-                         <p class="skill cu-tag bg-cyan">mysql</p>
-                         <p class="skill cu-tag bg-cyan ">硬件设计</p>
+                         <p v-for="(skill,idx) in peopleDetail.skills" :key="idx" class="skill cu-tag bg-cyan">{{skill}}</p>
                     </div>
-                  
-                
                 </div>  
             </div> 
          <div class="people-type">
-             <p>财务方向</p>
+             <p>{{peopleDetail.type}}</p>
          </div>       
      </div>
      <div class="peopleRate bg-white">
-         <div class="Rate_info">
-             <text class="cuIcon-message lg text-cyan"></text>
-             <p>沟通能力 ：</p>
-             <my-rate value='3.7' readonly='false' @onRate='myvalue' size='40rpx' length='5'/>
-         </div>
-         <div class="Rate_info">
-             <text class="cuIcon-wefill lg text-cyan"></text>
-             <p>性格指数 ：</p>
-             <my-rate value='4.5' readonly='false' @onRate='myvalue' size='40rpx' length='5'/>
-         </div>
-         <div class="Rate_info">
-             <text class="cuIcon-link lg text-cyan"></text>
-             <p>团队配合度 ：</p>
-             <my-rate value='2.1' readonly='false' @onRate='myvalue' size='40rpx' length='5'/>
+         <div class="Rate_info" v-for="(star,idx) in peopleDetail.stars" :key="idx">
+             <text class="lg text-cyan" :class="'cuIcon-' + Name[idx]" ></text>
+             <p>{{starName[idx]}} ：</p>
+             <my-rate :value='star' readonly='false' @onRate='myvalue' size='40rpx' length='5'/>
          </div>
      </div>
      <div class="peopleHonor bg-white">
@@ -58,13 +45,9 @@
             <span class="cut"></span>
          </div>
          <div class="honor">
-             <div class="info">
+             <div class="info" v-for="(prize,idx) in peopleDetail.prizes" :key="idx">
                  <text class="cuIcon-title lg text-cyan"></text>
-                 <p>微信小程序大赛全国三等奖</p>
-             </div>
-             <div class="info">
-                 <text class="cuIcon-title lg text-cyan"></text>
-                 <p>西南科技大学最帅大学生</p>
+                 <p>{{prize}}</p>
              </div>
         </div>    
      </div>
@@ -75,7 +58,7 @@
             <span class="cut"></span>
          </div>
          <div class="experience">
-             <span>我是西南科技大学最帅的人我是西南科技大学最帅的人我是西南科技大学最帅的人我是西南科技大学最帅的人我是西南科技大学最帅的人我是西南科技大学最帅的人我是西南科技大学最帅的人我是西南科技大学最帅的人我是西南科技大学最帅的人</span>
+             <span>{{peopleDetail.introduce}}</span>
         </div>    
      </div>
      <div class="peopleHonor bg-white">
@@ -114,10 +97,6 @@
 			</div>
 		</div>
      </div>
-        
-            
-     
-    
     
  </div>
 </template>
@@ -128,7 +107,10 @@ export default {
  data() {
   return {
       modalName: null,
-      childvalue:''
+      childvalue:'',
+      peopleDetail:{},
+      starName:['沟通能力','性格指数','团队配合度'],
+      Name:['message','wefill','link']
   }
  },
  components:{
@@ -136,10 +118,13 @@ export default {
     },
  
  beforeMount(){
- wx.setNavigationBarColor({
-  frontColor: '#ffffff',
-  backgroundColor: '#1cbbb4',
-})
+    wx.setNavigationBarColor({
+            frontColor: '#ffffff',
+            backgroundColor: '#1cbbb4',
+    })
+ },
+ mounted(){
+     this.peopleDetail=JSON.parse(this.$mp.query.peopleItem)
  },
 
 onShareAppMessage(){
@@ -229,7 +214,7 @@ methods:{
     margin-right: 10rpx;
 }
 .skill{
-    margin-right: 30rpx;
+    margin-right: 10rpx;
     padding: 5rpx 10rpx;
     border-radius: 8rpx;
     

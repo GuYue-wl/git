@@ -88,6 +88,7 @@
 export default {
  data() {
   return {
+        getdata:[]
   }
  },
  beforeMount(){
@@ -95,6 +96,9 @@ export default {
   frontColor: '#ffffff',
   backgroundColor: '#1cbbb4',
 })
+ },
+ created(){
+    this.getdatalist()
  },
  
 methods:{
@@ -108,6 +112,22 @@ methods:{
       url: '/pages/userHonor/main',
     })
   },
+  getdatalist(){
+       this.$flyio.post('/info',
+       {  
+   }
+       ).then(res=>{
+         console.log(res);
+        this.getdata=res.data.list;
+        for(let i =0; i<this.getdata.length; i++){
+            this.getdata[i]['skills'] = this.getdata[i].skill.split('-');
+            this.getdata[i]['prizes'] = this.getdata[i].prize.split('-');
+            this.getdata[i]['stars'] = this.getdata[i].stars.split('-');
+        }
+       }).catch(error=>{
+           console.log(error);
+       })     
+  }
 }
 }
 </script>

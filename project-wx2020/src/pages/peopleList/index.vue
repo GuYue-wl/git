@@ -1,6 +1,6 @@
 <template>
  <div class="peopleListContainer">
-     <div class="peopleList bg-white" @click="toDetail" v-for="(item,i) in getdata" :key="i">
+     <div class="peopleList bg-white"  v-for="(item,index) in getdata" :key="index" v-bind:key="index" @tap="toIndexDetail(item)">
         <div class="peopleContainer">
             <div class="people_name">
                 <p class="info_name">{{item.username}}同学</p>
@@ -11,12 +11,11 @@
                 <p class="info_school">{{item.school}}</p>
             </div>
             <div class="people_skill ">
-                <p class="skill cu-tag bg-cyan round">{{item.prize}}</p>
-                <p class="skill cu-tag bg-cyan radius">{{item.pCharacter}}</p>
+                <p v-for="(skill,idx) in item.skills" class="skill cu-tag bg-cyan round" :key="idx" >{{skill}}</p>
             </div>
         </div>
         <div class="people-type">
-                <p class="type ">{{item.wechat}}</p>
+                <p class="type ">{{item.type}}</p>
          </div>
     </div>
   
@@ -27,53 +26,45 @@
 export default {
  data() {
   return {
-//    postdata:{
 
-//   wxCondition:
-//     {
-//     },
-//   pageSize:"2",
-//    currentPage:"0"
-//    },
    getdata:[]
+   
   }
  },
  beforeMount(){
- wx.setNavigationBarColor({
-  frontColor: '#ffffff',
-  backgroundColor: 'white',
-})
+        wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: 'white',
+        })
  },
  created(){
-this.getdatalist()
+    this.getdatalist()
  },
 methods:{
-    toDetail(){
+    toIndexDetail(peopleItem){
         wx.navigateTo({
-              url: '/pages/peopleDetail/main'
-        
+              url: '/pages/peopleDetail/main?peopleItem=' + JSON.stringify(peopleItem),
         })
     },
     //请求数据
   getdatalist(){
-    
        this.$flyio.post('/index',
        {
-        "wxCondition":{},
-        
+        "wxCondition":{},   
    }
        ).then(res=>{
-         console.log(res);
-         this.getdata=res.data.list
+        this.getdata=res.data.list;
+        for(let i =0; i<this.getdata.length; i++){
+            this.getdata[i]['skills'] = this.getdata[i].skill.split('-');
+            this.getdata[i]['prizes'] = this.getdata[i].prize.split('-');
+            this.getdata[i]['stars'] = this.getdata[i].stars.split('-');
+        }
        }).catch(error=>{
            console.log(error);
-           
-       })
-    
-         
+       })     
   }
 }
-//   }
+ 
 }
 </script>
 

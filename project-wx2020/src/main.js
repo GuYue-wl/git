@@ -3,6 +3,7 @@ import App from './App'
 import'../static/colorui/main.css'
 import'../static/colorui/icon.css'
 import'../static/iconfont/iconfont.css'
+
 var Fly=require("flyio/dist/npm/wx")
 var fly=new Fly
 Vue.config.productionTip = false
